@@ -1,18 +1,18 @@
 {
-    "name": "mbahmario/bpjs",
-    "description": "Wrapper for BPJS Indonesia",
+    "name": "rajifafif/bpjs",
+    "description": "Wrapper for BPJS Indonesia, Forked from mbahmario/bpjs",
     "type": "package",
     "authors": [
         {
-            "name": "Rio Irmayanto",
-            "email": "rio.irmayanto@gmail.com"
+            "name": "Rajif Afif",
+            "email": "rajifafif@gmail.com"
         }
     ],
     "license": "mit",
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "Mbahmario\\Bpjs\\": "src/"
+            "Rajifafif\\Bpjs\\": "src/"
         }
     },
     "require": {

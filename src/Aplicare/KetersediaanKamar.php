@@ -1,7 +1,7 @@
 <?php
-namespace Mbahmario\Bpjs\Aplicare;
+namespace Rajifafif\Bpjs\Aplicare;
 
-use Mbahmario\Bpjs\BpjsService;
+use Rajifafif\Bpjs\BpjsService;
 
 class KetersediaanKamar extends BpjsService
 {

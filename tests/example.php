@@ -33,7 +33,7 @@ $dev_antrean_conf = [
 
 
 //use referensi serivce
-$referensi = new \Mbahmario\Bpjs\Antrean\Antrean($antrean_conf);
+$referensi = new \Rajifafif\Bpjs\Antrean\Antrean($antrean_conf);
 $data =array(
     "kodebooking"=>"A0001#1619658443",
 );

@@ -1,7 +1,7 @@
 <?php
-namespace Mbahmario\Bpjs\VClaim;
+namespace Rajifafif\Bpjs\VClaim;
 
-use Mbahmario\Bpjs\BpjsService;
+use Rajifafif\Bpjs\BpjsService;
 
 class Peserta extends BpjsService
 {

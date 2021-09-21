@@ -1,7 +1,7 @@
 <?php
-namespace Mbahmario\Bpjs\Antrean;
+namespace Rajifafif\Bpjs\Antrean;
 
-use Mbahmario\Bpjs\BpjsService;
+use Rajifafif\Bpjs\BpjsService;
 
 class Jadwaldokter extends BpjsService
 {

@@ -1,6 +1,6 @@
 <?php
-namespace Mbahmario\Bpjs\VClaim;
-use Mbahmario\Bpjs\BpjsService;
+namespace Rajifafif\Bpjs\VClaim;
+use Rajifafif\Bpjs\BpjsService;
 
 class Sep extends BpjsService
 {

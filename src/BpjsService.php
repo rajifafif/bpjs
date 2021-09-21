@@ -1,5 +1,5 @@
 <?php
-namespace Mbahmario\Bpjs;
+namespace Rajifafif\Bpjs;
 
 use GuzzleHttp\Client;
 
