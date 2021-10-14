@@ -2,6 +2,7 @@
 namespace Rajifafif\Bpjs;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException as Exception;
 
 class BpjsService{
 
@@ -103,7 +104,7 @@ class BpjsService{
                     'headers' => $this->headers
                 ]
             )->getBody()->getContents();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $response = $e->getResponse()->getBody();
         }
         return $response;
@@ -124,7 +125,7 @@ class BpjsService{
                     'json' => $data,
                 ]
             )->getBody()->getContents();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $response = $e->getResponse()->getBody();
         }
         return $response;
@@ -142,7 +143,7 @@ class BpjsService{
                     'json' => $data,
                 ]
             )->getBody()->getContents();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $response = $e->getResponse()->getBody();
         }
         return $response;
@@ -161,7 +162,7 @@ class BpjsService{
                     'json' => $data,
                 ]
             )->getBody()->getContents();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $response = $e->getResponse()->getBody();
         }
         return $response;
