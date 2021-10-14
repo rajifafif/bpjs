@@ -3,6 +3,7 @@ namespace Rajifafif\Bpjs;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException as Exception;
+use LZCompressor\LZString;
 
 class BpjsService{
 
@@ -56,6 +57,11 @@ class BpjsService{
      */
     private $service_name;
 
+    /**
+     * @var string
+     */
+    private $decrypt_key;
+
     public function __construct($configurations)
     {
         $this->clients = new Client([
@@ -96,7 +102,39 @@ class BpjsService{
         $signature = hash_hmac('sha256', $data, $this->secret_key, true);
         $encodedSignature = base64_encode($signature);
         $this->signature = $encodedSignature;
+
+        //decrypt_key
+        $this->decrypt_key = $this->cons_id . $this->secret_key . $this->timestamp;
+
         return $this;
+    }
+
+    protected function stringDecrypt($key, $string){
+        $encrypt_method = 'AES-256-CBC';
+
+        // hash
+        $key_hash = hex2bin(hash('sha256', $key));
+  
+        // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+        $iv = substr(hex2bin(hash('sha256', $key)), 0, 16);
+
+        $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key_hash, OPENSSL_RAW_DATA, $iv);
+  
+        return $output;
+    }
+
+    protected function decompress($string){
+        return LZString::decompressFromEncodedURIComponent($string);
+    }
+
+    protected function decryptResponse($response)
+    {
+        $responseVar = json_decode($response);
+        if (isset($responseVar['response'])) {
+            $responseVar['response'] = $this->decompress($this->stringDecrypt($this->decrypt_key, $responseVar['response']));
+        }
+        
+        return json_encode($responseVar);
     }
 
     protected function get($feature)
@@ -110,6 +148,8 @@ class BpjsService{
                     'headers' => $this->headers
                 ]
             )->getBody()->getContents();
+
+            $response = $this->decryptResponse($response);
         } catch (Exception $e) {
             throw new \Exception($e->getMessage(), 1);
         }
@@ -131,6 +171,8 @@ class BpjsService{
                     'json' => $data,
                 ]
             )->getBody()->getContents();
+
+            $response = $this->decryptResponse($response);
         } catch (Exception $e) {
             throw new \Exception($e->getMessage(), 1);
         }
@@ -149,6 +191,8 @@ class BpjsService{
                     'json' => $data,
                 ]
             )->getBody()->getContents();
+
+            $response = $this->decryptResponse($response);
         } catch (Exception $e) {
             throw new \Exception($e->getMessage(), 1);
         }
@@ -168,6 +212,8 @@ class BpjsService{
                     'json' => $data,
                 ]
             )->getBody()->getContents();
+
+            $response = $this->decryptResponse($response);
         } catch (Exception $e) {
             throw new \Exception($e->getMessage(), 1);
         }
