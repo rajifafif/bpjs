@@ -44,6 +44,11 @@ class BpjsService{
     /**
      * @var string
      */
+    private $user_key;
+
+    /**
+     * @var string
+     */
     private $base_url;
 
     /**
@@ -72,7 +77,8 @@ class BpjsService{
         $this->headers = [
             'X-cons-id' => $this->cons_id,
             'X-Timestamp' => $this->timestamp,
-            'X-Signature' => $this->signature
+            'X-Signature' => $this->signature,
+            'user_key' => $this->user_key
         ];
         return $this;
     }
@@ -166,6 +172,14 @@ class BpjsService{
             throw new \Exception($e->getMessage(), 1);
         }
         return $response;
+    }
+
+    public function getSignature()
+    {
+        //set X-Timestamp, X-Signature, and finally the headers
+        $this->setTimestamp()->setSignature()->setHeaders();
+
+        return $this->headers;
     }
 
 }
