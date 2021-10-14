@@ -1,6 +1,6 @@
 {
     "name": "rajifafif/bpjs",
-    "description": "Wrapper for BPJS Indonesia, Forked from mbahmario/bpjs",
+    "description": "Wrapper for BPJS Indonesia API, Forked from mbahmario/bpjs",
     "type": "package",
     "authors": [
         {
@@ -16,6 +16,6 @@
         }
     },
     "require": {
-        "guzzlehttp/guzzle": "6.3.3"
+        "guzzlehttp/guzzle": "^6.3.3"
     }
 }
