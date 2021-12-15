@@ -82,8 +82,8 @@ class BpjsService{
     {
         $this->headers = [
             'X-cons-id' => $this->cons_id,
-            'X-Timestamp' => $this->timestamp,
-            'X-Signature' => $this->signature,
+            'X-timestamp' => $this->timestamp,
+            'X-signature' => $this->signature,
             'user_key' => $this->user_key
         ];
         return $this;
@@ -93,13 +93,13 @@ class BpjsService{
     {
         $dateTime = new \DateTime('now', new \DateTimeZone('UTC'));
         $this->timestamp = (string)$dateTime->getTimestamp();
+        
         return $this;
     }
 
     protected function setSignature()
     {
-        $data = $this->cons_id . '&' . $this->timestamp;
-        $signature = hash_hmac('sha256', $data, $this->secret_key, true);
+        $signature = hash_hmac('sha256', $this->cons_id.'&'.$this->timestamp, $this->secret_key, true);
         $encodedSignature = base64_encode($signature);
         $this->signature = $encodedSignature;
 
@@ -130,8 +130,8 @@ class BpjsService{
     protected function decryptResponse($response)
     {
         $responseVar = json_decode($response);
-        if (isset($responseVar['response'])) {
-            $responseVar['response'] = $this->decompress($this->stringDecrypt($this->decrypt_key, $responseVar['response']));
+        if (isset($responseVar->response)) {
+            $responseVar->response = $this->decompress($this->stringDecrypt($this->decrypt_key, $responseVar->response));
         }
         
         return json_encode($responseVar);
@@ -221,10 +221,7 @@ class BpjsService{
     }
 
     public function getSignature()
-    {
-        //set X-Timestamp, X-Signature, and finally the headers
-        $this->setTimestamp()->setSignature()->setHeaders();
-
+    {        
         return $this->headers;
     }
 
